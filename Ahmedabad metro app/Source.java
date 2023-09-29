@@ -7,7 +7,7 @@ class Metro {
     ArrayList<String> north = new ArrayList<>();
     ArrayList<String> south = new ArrayList<>();
 
-    public class Stations {
+    class Stations {
         String Station_name;
         Stations next_Station;
         Stations prev_Station;
@@ -200,6 +200,16 @@ class Metro {
         if (start == null || end == null) {
             System.out.println("Invalid station!");
             return -1;
+        } else if (start == end) {
+            distance = 0;
+            while (start != null && (!start.Station_name.equals(source) && !start.Station_name.equals(destination))) {
+                start = start.next_Station;
+            }
+            while (start != null && (!start.Station_name.equals(destination) || !start.Station_name.equals(source))) {
+                distance += start.distance_next;
+                start = start.next_Station;
+            }
+            return distance;
         }
 
         while (start != null && !start.Station_name.equals(source)) {
@@ -233,6 +243,16 @@ class Metro {
         if (start == null || end == null) {
             System.out.println("Invalid station!");
             return -1;
+        } else if (start == end) {
+            time = 0;
+            while (start != null && (!start.Station_name.equals(source) && !start.Station_name.equals(destination))) {
+                start = start.next_Station;
+            }
+            while (start != null && (!start.Station_name.equals(destination) || !start.Station_name.equals(source))) {
+                time += start.time_next;
+                start = start.next_Station;
+            }
+            return time / 60;
         }
 
         while (start != null && !start.Station_name.equals(source)) {
